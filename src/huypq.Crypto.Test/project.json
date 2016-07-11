@@ -5,11 +5,11 @@
   },
 
   "dependencies": {
+    "huypq.Crypto": "1.0.0-*",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
-    },
-    "PasswordHash": "1.0.0-*"
+    }
   },
 
   "frameworks": {
