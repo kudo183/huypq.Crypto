@@ -5,28 +5,22 @@ using System.Runtime.CompilerServices;
 
 namespace huypq.Crypto
 {
-    public class PasswordHash
+    public static class PasswordHash
     {
         const int Pbkdf2IterCount = 1000;
         const int Pbkdf2SubkeyLength = 256 / 8; // 256 bits
         const int SaltSize = 128 / 8; // 128 bits
         const KeyDerivationPrf Pbkdf2Prf = KeyDerivationPrf.HMACSHA256;
-        private readonly RandomNumberGenerator _rng;
-
-        public PasswordHash()
-        {
-            _rng = RandomNumberGenerator.Create();
-        }
-
-        public string HashedBase64String(string password)
+        
+        public static string HashedBase64String(string password)
         {
             return Convert.ToBase64String(HashedBytes(password));
         }
 
-        public byte[] HashedBytes(string password)
+        public static byte[] HashedBytes(string password)
         {
             byte[] salt = new byte[SaltSize];
-            _rng.GetBytes(salt);
+            RandomNumberGenerator.Create().GetBytes(salt);
             byte[] subkey = KeyDerivation.Pbkdf2(
                 password, salt, Pbkdf2Prf, Pbkdf2IterCount, Pbkdf2SubkeyLength);
 
